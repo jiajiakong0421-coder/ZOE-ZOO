@@ -57,7 +57,7 @@
   position: relative;
   font-family: 'Playfair Display', serif;
   font-weight: 900;
-  font-size: 19vw;
+  font-size: 14vw;
   line-height: 0.95;
   letter-spacing: -0.04em;
   background: linear-gradient(to bottom, #ee7752, #f8a282, #ee7752);
@@ -70,6 +70,12 @@
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
               filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, background-position;
+}
+
+@media (min-width: 768px) {
+  .letter-lens {
+    font-size: 11vw;
+  }
 }
 
 .letter-lens:hover {

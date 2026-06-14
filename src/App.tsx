@@ -1068,7 +1068,7 @@ export default function App() {
           </motion.span>
           
           {/* Elegant Display text featuring custom letter apertures */}
-          <div className="flex justify-center items-center flex-wrap select-none py-4">
+          <div className="flex justify-center items-center flex-nowrap whitespace-nowrap overflow-visible select-none py-4 max-w-full">
             {"ZOEZOO".split('').map((char, index) => {
               const pos = lensPositions[index] || { x: 50, y: 50, hover: false };
               return (
@@ -1080,7 +1080,7 @@ export default function App() {
                     playOscillator(180 + index * 80, 'sine', 0.4, 0.06);
                     setAmbientIndex(prev => prev + 1);
                   }}
-                  className={`letter-lens cursor-pointer mx-1 md:mx-2 select-none relative transition-all duration-300`}
+                  className={`letter-lens cursor-pointer mx-0.5 sm:mx-1 md:mx-1.5 select-none relative transition-all duration-300`}
                   style={{
                     backgroundImage: pos.hover ? `url(${lensImages[index]})` : `linear-gradient(to bottom, #ee7752, #f8a282, #ee7752)`,
                     backgroundPosition: pos.hover ? `${pos.x}% ${pos.y}%` : 'center',

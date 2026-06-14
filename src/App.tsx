@@ -766,67 +766,69 @@ export default function App() {
       <div className="noise-overlay absolute inset-0 pointer-events-none z-40 opacity-5"></div>
 
       {/* 2. Premium Fixed Header Bar (Floating Glass Dock) */}
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50 bg-[#0e182e]/60 backdrop-blur-3xl border border-white/10 hover:border-themeCoral/25 py-2.5 px-5 md:px-8 rounded-full flex justify-between items-center transition-all duration-500 shadow-[0_16px_50px_-10px_rgba(7,13,25,0.9),_0_0_30px_rgba(238,119,82,0.03)]">
-        <div className="flex items-center space-x-4 md:space-x-5">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[94%] max-w-7xl z-50 bg-[#0e182e]/80 backdrop-blur-2xl border border-themeCoral/20 py-3 px-6 md:px-10 rounded-2xl flex justify-between items-center transition-all duration-300 shadow-[0_12px_40px_-5px_rgba(14,24,46,0.85),_0_0_25px_rgba(238,119,82,0.05)]">
+        <div className="flex items-center space-x-4 md:space-x-6">
           <div className="flex flex-col cursor-pointer group" onClick={() => { jumpTo('home'); setShowModuleAtlas(false); }}>
-            <span className="font-serif text-base md:text-lg tracking-[0.45em] uppercase font-black text-themePeach leading-none group-hover:text-white transition-colors duration-300">ZOE ZOO</span>
-            <span className="text-[7px] tracking-[0.3em] uppercase font-mono text-blue-200/40 mt-1 leading-none transition-colors duration-300 group-hover:text-blue-200/60">Wilderness Inst.</span>
+            <span className="font-serif text-lg tracking-[0.4em] uppercase font-black text-themePeach leading-none group-hover:text-white transition-colors duration-300">ZOE ZOO</span>
+            <span className="text-[7.5px] tracking-[0.3em] uppercase font-mono text-blue-200/40 mt-1.5 leading-none transition-colors duration-300 group-hover:text-blue-200/60">Wilderness Inst.</span>
           </div>
 
-          <div className="hidden sm:block h-6 w-[1px] bg-white/10" />
 
-          {/* Micro Active Status indicator */}
-          <div className="hidden md:flex items-center space-x-1.5 text-[6.5px] text-emerald-400 font-mono tracking-widest uppercase">
-            <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-            <span>SECURE GATEWAY ACTIVE</span>
-          </div>
         </div>
 
-        {/* Section Navigation with sliding glass capsule indicator */}
-        <div className="hidden lg:flex items-center space-x-4 text-[8.5px] uppercase tracking-[0.2em] font-extrabold relative">
-          {[
-            { id: 'home', tag: '01', label: 'The Sanctuary' },
-            { id: 'hub', tag: '02', label: 'Community Hub' },
-            { id: 'calendar', tag: '03', label: 'Advent Chrono' },
-            { id: 'map', tag: '04', label: 'Sanctuary Map' },
-            { id: 'encyclopedia', tag: '05', label: 'Species Archive' },
-          ].map((item) => {
-            const isCurrent = activeSection === item.id;
-            return (
-              <button 
-                key={item.id}
-                onClick={() => { jumpTo(item.id as any); setShowModuleAtlas(false); }} 
-                className={`transition-all py-2 px-3.5 rounded-full relative ${isCurrent ? 'text-white' : 'text-white/55 hover:text-white'}`}
-              >
-                <span className="relative z-10 flex items-center">
-                  <span className={`text-[6.5px] font-mono mr-1.5 ${isCurrent ? 'text-themePeach font-black' : 'text-themeCoral/60'}`}>{item.tag}</span>
-                  {item.label}
-                </span>
-                {isCurrent && (
-                  <motion.div 
-                    layoutId="navActiveBg" 
-                    className="absolute inset-0 bg-[#ee7752]/10 border border-[#ee7752]/15 rounded-full z-0"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center space-x-3.5">
-          {/* Web Audio Synthetic Toggle and visualization */}
-          <div className="flex items-center space-x-2.5 bg-white/[0.04] py-1 px-3 rounded-full border border-white/5">
-            <span className="text-[7px] font-mono text-white/30 uppercase tracking-widest hidden sm:inline">SYNTH</span>
-            
-            {soundEnabled && (
-              <div className="flex items-end gap-[1.5px] h-2.5 px-0.5 pointer-events-none w-4">
-                <span className="w-[1.5px] bg-[#ee7752] rounded-full animate-pulse" style={{ height: '50%' }} />
-                <span className="w-[1.5px] bg-[#f8a282] rounded-full animate-pulse" style={{ height: '90%' }} />
-                <span className="w-[1.5px] bg-[#ee7752] rounded-full animate-pulse" style={{ height: '35%' }} />
-              </div>
+        {/* Section Navigation with moving cursor feedback */}
+        <div className="hidden lg:flex items-center space-x-8 text-[9px] uppercase tracking-[0.25em] font-black">
+          <button 
+            onClick={() => { jumpTo('home'); setShowModuleAtlas(false); }} 
+            className={`transition-all py-1.5 px-3 rounded-lg relative ${activeSection === 'home' ? 'text-themePeach bg-white/5' : 'text-white/55 hover:text-white hover:bg-white/5'}`}
+          >
+            <span className="text-[7px] text-themeCoral mr-1 font-mono">[S1]</span>The Sanctuary
+            {activeSection === 'home' && (
+              <motion.div layoutId="navMarker" className="absolute bottom-0 left-3 right-3 h-[2px] bg-themeCoral rounded-full" />
             )}
+          </button>
+          <button 
+            onClick={() => { jumpTo('hub'); setShowModuleAtlas(false); }} 
+            className={`transition-all py-1.5 px-3 rounded-lg relative ${activeSection === 'hub' ? 'text-themePeach bg-white/5' : 'text-white/55 hover:text-white hover:bg-white/5'}`}
+          >
+            <span className="text-[7px] text-themeCoral mr-1 font-mono">[S2]</span>COMMUNITY HUB
+            {activeSection === 'hub' && (
+              <motion.div layoutId="navMarker" className="absolute bottom-0 left-3 right-3 h-[2px] bg-themeCoral rounded-full" />
+            )}
+          </button>
+          <button 
+            onClick={() => { jumpTo('calendar'); setShowModuleAtlas(false); }} 
+            className={`transition-all py-1.5 px-3 rounded-lg relative ${activeSection === 'calendar' ? 'text-themePeach bg-white/5' : 'text-white/55 hover:text-white hover:bg-white/5'}`}
+          >
+            <span className="text-[7px] text-themeCoral mr-1 font-mono">[S3]</span>ADVENT CHRONO
+            {activeSection === 'calendar' && (
+              <motion.div layoutId="navMarker" className="absolute bottom-0 left-3 right-3 h-[2px] bg-themeCoral rounded-full" />
+            )}
+          </button>
+          <button 
+            onClick={() => { jumpTo('map'); setShowModuleAtlas(false); }} 
+            className={`transition-all py-1.5 px-3 rounded-lg relative ${activeSection === 'map' ? 'text-themePeach bg-white/5' : 'text-white/55 hover:text-white hover:bg-white/5'}`}
+          >
+            <span className="text-[7px] text-themeCoral mr-1 font-mono">[S4]</span>SANCTUARY MAP
+            {activeSection === 'map' && (
+              <motion.div layoutId="navMarker" className="absolute bottom-0 left-3 right-3 h-[2px] bg-themeCoral rounded-full" />
+            )}
+          </button>
+          <button 
+            onClick={() => { jumpTo('encyclopedia'); setShowModuleAtlas(false); }} 
+            className={`transition-all py-1.5 px-3 rounded-lg relative ${activeSection === 'encyclopedia' ? 'text-themePeach bg-white/5' : 'text-white/55 hover:text-white hover:bg-white/5'}`}
+          >
+            <span className="text-[7px] text-themeCoral mr-1 font-mono">[S5]</span>SPECIES ARCHIVE
+            {activeSection === 'encyclopedia' && (
+              <motion.div layoutId="navMarker" className="absolute bottom-0 left-3 right-3 h-[2px] bg-themeCoral rounded-full" />
+            )}
+          </button>
+        </div>
 
+        <div className="flex items-center space-x-4">
+          {/* Web Audio Synthetic Toggle and visualization */}
+          <div className="flex items-center space-x-2 bg-themeNavy/50 py-1 px-3 rounded-full border border-themeCoral/15">
+            <span className="text-[7px] font-mono text-white/30 uppercase tracking-widest hidden sm:inline">SYNTH</span>
             <button 
               onClick={() => {
                 const nextState = !soundEnabled;
@@ -838,7 +840,7 @@ export default function App() {
                   playOscillator(523.25, 'sine', 0.25, 0.08); // high C tone
                 }
               }}
-              className={`p-1.5 border rounded-full transition-all flex items-center justify-center ${soundEnabled ? 'bg-themeCoral/20 border-themeCoral/45 text-themePeach shadow-[0_0_8px_rgba(238,119,82,0.15)]' : 'border-white/10 text-white/40 hover:text-[#f8a282] hover:bg-white/5'}`}
+              className={`p-1.5 border rounded-full transition-all flex items-center justify-center ${soundEnabled ? 'bg-themeCoral/25 border-themeCoral/60 text-themePeach shadow-[0_0_10px_rgba(238,119,82,0.2)]' : 'border-blue-900/40 text-blue-200/40 hover:text-[#f8a282]'}`}
             >
               {soundEnabled ? <Volume2 className="w-3 h-3" /> : <VolumeX className="w-3 h-3" />}
             </button>
@@ -850,18 +852,17 @@ export default function App() {
               setShowModuleAtlas(false);
               playOscillator(300, 'sine', 0.1, 0.05);
             }}
-            className="lg:hidden p-2 rounded-full bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white flex items-center justify-center transition-all duration-300"
+            className="lg:hidden p-2 rounded-lg bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 flex items-center justify-center"
             title="Sectors Atlas Menu"
           >
-            {mobileMenuOpen ? <X className="w-4 h-4 text-themeCoral" /> : <LayoutGrid className="w-4 h-4 text-themePeach animate-pulse" />}
+            {mobileMenuOpen ? <X className="w-4.5 h-4.5 text-themeCoral" /> : <LayoutGrid className="w-4.5 h-4.5 text-themePeach animate-pulse" />}
           </button>
 
           <button 
             onClick={() => jumpTo('calendar')}
-            className="hidden sm:inline-block relative overflow-hidden rounded-full p-[1px] group transition-all duration-300 active:scale-95 shadow-[0_4px_15px_rgba(238,119,82,0.1)] hover:shadow-[0_4px_22px_rgba(238,119,82,0.22)]"
+            className="hidden sm:inline-block bg-gradient-to-r from-themeCoral to-themePeach p-[1px] rounded-lg group overflow-hidden transition-all duration-300"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-themeCoral to-themePeach rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
-            <span className="block relative bg-[#0e182e] hover:bg-transparent px-5 py-2 text-[8px] uppercase tracking-[0.25em] text-themePeach group-hover:text-[#0e182e] font-black rounded-full transition-all duration-500 leading-none">
+            <span className="block bg-[#0e182e] hover:bg-transparent px-5 py-2 text-[8.5px] uppercase tracking-[0.25em] text-themePeach group-hover:text-themeDarkBase font-black rounded-[7px] transition-all duration-300">
               Book Access
             </span>
           </button>
@@ -1068,7 +1069,7 @@ export default function App() {
           </motion.span>
           
           {/* Elegant Display text featuring custom letter apertures */}
-          <div className="flex justify-center items-center flex-nowrap whitespace-nowrap overflow-visible select-none py-4 max-w-full">
+          <div className="flex justify-center items-center flex-nowrap select-none py-4 w-full">
             {"ZOEZOO".split('').map((char, index) => {
               const pos = lensPositions[index] || { x: 50, y: 50, hover: false };
               return (
@@ -1080,12 +1081,13 @@ export default function App() {
                     playOscillator(180 + index * 80, 'sine', 0.4, 0.06);
                     setAmbientIndex(prev => prev + 1);
                   }}
-                  className={`letter-lens cursor-pointer mx-0.5 sm:mx-1 md:mx-1.5 select-none relative transition-all duration-300`}
+                  className={`letter-lens cursor-pointer mx-1 md:mx-2 select-none relative transition-all duration-300`}
                   style={{
                     backgroundImage: pos.hover ? `url(${lensImages[index]})` : `linear-gradient(to bottom, #ee7752, #f8a282, #ee7752)`,
                     backgroundPosition: pos.hover ? `${pos.x}% ${pos.y}%` : 'center',
                     filter: pos.hover ? 'drop-shadow(0 10px 25px rgba(238, 119, 82, 0.4))' : 'none',
-                    transform: pos.hover ? 'scale(1.09) rotate(2deg) translateY(-8px)' : 'none'
+                    transform: pos.hover ? 'scale(1.09) rotate(2deg) translateY(-8px)' : 'none',
+                    marginRight: index === 2 ? '4.5vw' : undefined
                   }}
                 >
                   {char}

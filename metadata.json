@@ -1,0 +1,6 @@
+{
+  "name": "ZOE ZOO",
+  "description": "A premium, unified National Geographic Wilderness Portfolio featuring interactive preloader, customized 3D Advent Calendar, and immersive Wildlife Encyclopedia with organic audio synthesis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

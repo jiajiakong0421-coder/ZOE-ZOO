@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-themeNavy: #1c305d;
+  --color-themeCoral: #ee7752;
+  --color-themePeach: #f8a282;
+  --color-themeDarkBase: #0e182e;
+  --font-serif: 'Playfair Display', serif;
+  --font-syne: 'Syne', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-themeDarkBase);
+    color: #fdfaf5;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0e182e;
+}
+::-webkit-scrollbar-thumb {
+  background: #ee7752;
+  border-radius: 9px;
+}
+
+/* 3D Perspective Context */
+.perspective-container {
+  perspective: 1200px;
+}
+
+/* Blueprint Grid Background */
+.grid-blueprint {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(248, 162, 130, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(248, 162, 130, 0.018) 1px, transparent 1px);
+}
+
+/* Noise overlay */
+.noise-overlay {
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Basic Letter Lens Zoom Background Clip styling */
+.letter-lens {
+  display: inline-block;
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 19vw;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  background: linear-gradient(to bottom, #ee7752, #f8a282, #ee7752);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, background-position;
+}
+
+.letter-lens:hover {
+  transform: scale(1.08) translateY(-4px) rotateZ(2deg);
+}
+
+/* Glass pane with customized borders */
+.glass-panel {
+  background: rgba(14, 24, 46, 0.55);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(238, 119, 82, 0.16);
+  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover {
+  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(238, 119, 82, 0.35);
+  background: rgba(28, 48, 93, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(14, 24, 46, 0.85), 0 0 30px rgba(238, 119, 82, 0.08);
+  transform: translateY(-3px);
+}
+
+/* Photo Frames with luminosity blend mode and micro-zoom states */
+.photo-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(28, 48, 93, 0.35);
+  border: 1px solid rgba(248, 162, 130, 0.15);
+}
+
+.photo-element {
+  filter: grayscale(100%) brightness(0.7) contrast(1.05);
+  mix-blend-mode: luminosity;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease, mix-blend-mode 0.6s ease;
+}
+
+.zoe-card:hover .photo-element,
+.photo-frame:hover .photo-element {
+  transform: scale(1.08);
+  filter: grayscale(0%) brightness(0.9) contrast(1.0);
+  mix-blend-mode: normal;
+}
+
+/* 3D double or single door styles */
+.door-single {
+  transform-origin: left center;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.9s ease, box-shadow 1.2s ease;
+  transform-style: preserve-3d;
+}
+
+.doors-open .door-single {
+  transform: rotateY(105deg);
+  opacity: 0.15;
+  box-shadow: 15px 10px 30px rgba(0, 0, 0, 0.49);
+}
+
+.inline-door-single {
+  transform-origin: left center;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.6s ease, box-shadow 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+.active-grid-cell:hover .inline-door-single {
+  transform: rotateY(105deg);
+  opacity: 0.15;
+  box-shadow: 8px 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+/* Standard scrollbars hidden */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
